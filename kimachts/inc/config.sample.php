@@ -4,7 +4,7 @@
 
 return [
     // Oeffentliche Adresse dieses Ordners, ohne abschliessenden Slash.
-    'base_url' => 'https://kimachts.de',
+    'base_url' => 'https://list.kimachts.de',
 
     // SQLite-Datei. Am besten ausserhalb des Web-Roots ablegen,
     // z. B. '/www/htdocs/w0123456/kimachts-data/kimachts.sqlite'.

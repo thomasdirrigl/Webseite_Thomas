@@ -24,16 +24,16 @@ und SQLite – kein MySQL-Setup nötig, passt direkt auf das all-inkl-Hosting.
 
 ## Einrichtung bei all-inkl
 
-1. Ordner `kimachts/` hochladen (z. B. als Document-Root der Domain `kimachts.de` oder als Unterordner).
+1. Im KAS die Subdomain `list.kimachts.de` anlegen und als Ziel den hochgeladenen Ordner `kimachts/` wählen (er ist dann das Document-Root der Subdomain).
 2. `inc/config.sample.php` nach `inc/config.php` kopieren und anpassen:
-   - `base_url` – öffentliche Adresse des Ordners
+   - `base_url` – `https://list.kimachts.de` (bereits voreingestellt)
    - `mail_from` – Absenderadresse **der eigenen Domain** (im KAS als Postfach oder Weiterleitung anlegen)
    - `impressum_url` / `datenschutz_url`
    - `admin_password_hash` – erzeugen mit
      `php -r "echo password_hash('DEIN-PASSWORT', PASSWORD_DEFAULT), PHP_EOL;"`
    - optional `db_path` auf einen Ordner außerhalb des Web-Roots setzen
 3. Der Ordner für die Datenbank (Standard `data/`) muss für PHP beschreibbar sein. Die Datei wird beim ersten Aufruf automatisch angelegt.
-4. SSL-Zertifikat für die Domain im KAS aktivieren (`.htaccess` leitet auf HTTPS um).
+4. SSL-Zertifikat (Let's Encrypt) für `list.kimachts.de` im KAS aktivieren (`.htaccess` leitet auf HTTPS um).
 5. Testen: selbst eintragen, Mail bestätigen, in `admin.php` prüfen, wieder abmelden.
 
 Läuft kimachts unter einer eigenen Domain, braucht diese ein eigenes Impressum; die
