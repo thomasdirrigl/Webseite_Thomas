@@ -48,15 +48,21 @@ Die Plattform `kimachts.de` läuft auf dem Hetzner-Cloud-Server, nur die Subdoma
 | `@`    | A / AAAA   | IP des Hetzner-Servers                 |
 | `list` | A / AAAA   | IP des all-inkl-Servers (steht im KAS) |
 
-Liegt die Domain bei all-inkl, trägt man im KAS unter „DNS-Einstellungen“ für `@`
-die Hetzner-IP ein; `list` zeigt automatisch auf all-inkl. Wird die Zone woanders
-verwaltet (z. B. Hetzner DNS), muss `list` per A-Record auf all-inkl zeigen, sonst
-klappt auch das Let's-Encrypt-Zertifikat nicht.
+Die Domain liegt bei all-inkl, `@` (und ggf. `www`) zeigt per A-Record auf Hetzner.
+Nach dem Anlegen der Subdomain im KAS unter „Tools → DNS-Einstellungen“ prüfen:
+
+- Zeigt der Platzhalter `*` ebenfalls auf die Hetzner-IP, landet `list` sonst bei
+  Hetzner. Dann einen eigenen A-Record `list` mit der all-inkl-Server-IP anlegen
+  (die IP steht beim bisherigen `@`-Eintrag bzw. in den Server-Infos im KAS).
+- Kontrolle: `nslookup list.kimachts.de` muss die all-inkl-IP liefern, erst dann
+  das Let's-Encrypt-Zertifikat im KAS aktivieren.
 
 **Mail:** Die Bestätigungs-Mails verschickt der all-inkl-Server als
 `no-reply@kimachts.de`. Damit sie nicht im Spam landen, muss der SPF-Eintrag von
 `kimachts.de` all-inkl erlauben, z. B.
-`v=spf1 a mx include:spf.kasserver.com ~all`. Verschickt der Hetzner-Server später
+`v=spf1 a mx include:spf.kasserver.com ~all`. Der MX-Eintrag bleibt bei all-inkl,
+dort liegt auch das Postfach; all-inkl legt diesen SPF-Eintrag standardmäßig an –
+nur prüfen, dass er beim Umstellen auf Hetzner nicht gelöscht wurde. Verschickt der Hetzner-Server später
 ebenfalls Mails, kommt dessen Mailweg zusätzlich in denselben Eintrag – es darf nur
 **einen** SPF-Record geben. Wenn möglich DKIM für `kimachts.de` im KAS aktivieren.
 
