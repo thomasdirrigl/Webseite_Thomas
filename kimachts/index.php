@@ -14,7 +14,7 @@ if (isset($messages[$status])) {
 }
 
 $consent = h(CONSENT_TEXT);
-$datenschutz = h(config('datenschutz_url'));
+$datenschutz = 'datenschutz.php#interessentenliste';
 
 $form = $status === 'check' ? '' : <<<HTML
   <form class="signup" method="post" action="anmelden.php" novalidate>

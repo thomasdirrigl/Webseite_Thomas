@@ -17,9 +17,6 @@ return [
     'mail_from_name' => 'kimachts',
     'reply_to' => 'info@thomasdirrigl.de',
 
-    'impressum_url' => 'https://thomasdirrigl.de/impressum.html',
-    'datenschutz_url' => 'https://thomasdirrigl.de/datenschutz.html#interessentenliste',
-
     // Passwort-Hash fuer admin.php. Erzeugen mit:
     //   php -r "echo password_hash('DEIN-PASSWORT', PASSWORD_DEFAULT), PHP_EOL;"
     // Leer lassen deaktiviert den Admin-Bereich.

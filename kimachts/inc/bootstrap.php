@@ -144,8 +144,8 @@ function render(string $title, string $content): void
     header('X-Content-Type-Options: nosniff');
     header('Referrer-Policy: no-referrer');
     header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
-    $impressum = h(config('impressum_url'));
-    $datenschutz = h(config('datenschutz_url'));
+    $impressum = 'impressum.php';
+    $datenschutz = 'datenschutz.php';
     $title = h($title);
     echo <<<HTML
 <!DOCTYPE html>

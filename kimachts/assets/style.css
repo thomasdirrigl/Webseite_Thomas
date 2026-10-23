@@ -128,3 +128,9 @@ th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border);
   font-size: 0.85rem;
 }
 .footer a { color: var(--text-muted); }
+
+.legal h1 { font-size: 2rem; }
+.legal h2 { font-size: 1.15rem; margin: 32px 0 8px; }
+.legal p, .legal li { color: var(--text-muted); }
+.legal ul { padding-left: 20px; }
+.back { display: inline-block; margin-bottom: 24px; font-size: 0.9rem; }

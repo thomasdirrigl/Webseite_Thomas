@@ -20,7 +20,7 @@ und SQLite – kein MySQL-Setup nötig, passt direkt auf das all-inkl-Hosting.
 - Bestätigungs-Token wird nur gehasht gespeichert.
 - Keine Cookies, keine externen Ressourcen (Fonts, Tracking) auf der Eintragungsseite.
 - Keine Rückmeldung, ob eine Adresse schon eingetragen ist; Mail-Versand an dieselbe Adresse höchstens alle 10 Minuten.
-- Abschnitt 6 der `datenschutz.html` beschreibt die Verarbeitung.
+- Eigene `impressum.php` und `datenschutz.php` unter der Subdomain.
 
 ## Einrichtung bei all-inkl
 
@@ -28,7 +28,6 @@ und SQLite – kein MySQL-Setup nötig, passt direkt auf das all-inkl-Hosting.
 2. `inc/config.sample.php` nach `inc/config.php` kopieren und anpassen:
    - `base_url` – `https://list.kimachts.de` (bereits voreingestellt)
    - `mail_from` – Absenderadresse **der eigenen Domain** (im KAS als Postfach oder Weiterleitung anlegen)
-   - `impressum_url` / `datenschutz_url`
    - `admin_password_hash` – erzeugen mit
      `php -r "echo password_hash('DEIN-PASSWORT', PASSWORD_DEFAULT), PHP_EOL;"`
    - optional `db_path` auf einen Ordner außerhalb des Web-Roots setzen
@@ -36,5 +35,3 @@ und SQLite – kein MySQL-Setup nötig, passt direkt auf das all-inkl-Hosting.
 4. SSL-Zertifikat (Let's Encrypt) für `list.kimachts.de` im KAS aktivieren (`.htaccess` leitet auf HTTPS um).
 5. Testen: selbst eintragen, Mail bestätigen, in `admin.php` prüfen, wieder abmelden.
 
-Läuft kimachts unter einer eigenen Domain, braucht diese ein eigenes Impressum; die
-Links im Footer zeigen per Konfiguration auf die vorhandenen Seiten.
