@@ -35,3 +35,32 @@ und SQLite – kein MySQL-Setup nötig, passt direkt auf das all-inkl-Hosting.
 4. SSL-Zertifikat (Let's Encrypt) für `list.kimachts.de` im KAS aktivieren (`.htaccess` leitet auf HTTPS um).
 5. Testen: selbst eintragen, Mail bestätigen, in `admin.php` prüfen, wieder abmelden.
 
+
+## Aufteilung all-inkl / Hetzner
+
+Die Plattform `kimachts.de` läuft auf dem Hetzner-Cloud-Server, nur die Subdomain
+`list.kimachts.de` liegt bei all-inkl. Dafür müssen DNS und Mail passen:
+
+**DNS** (dort, wo die Zone von `kimachts.de` verwaltet wird):
+
+| Name   | Typ        | Ziel                                   |
+|--------|------------|----------------------------------------|
+| `@`    | A / AAAA   | IP des Hetzner-Servers                 |
+| `list` | A / AAAA   | IP des all-inkl-Servers (steht im KAS) |
+
+Liegt die Domain bei all-inkl, trägt man im KAS unter „DNS-Einstellungen“ für `@`
+die Hetzner-IP ein; `list` zeigt automatisch auf all-inkl. Wird die Zone woanders
+verwaltet (z. B. Hetzner DNS), muss `list` per A-Record auf all-inkl zeigen, sonst
+klappt auch das Let's-Encrypt-Zertifikat nicht.
+
+**Mail:** Die Bestätigungs-Mails verschickt der all-inkl-Server als
+`no-reply@kimachts.de`. Damit sie nicht im Spam landen, muss der SPF-Eintrag von
+`kimachts.de` all-inkl erlauben, z. B.
+`v=spf1 a mx include:spf.kasserver.com ~all`. Verschickt der Hetzner-Server später
+ebenfalls Mails, kommt dessen Mailweg zusätzlich in denselben Eintrag – es darf nur
+**einen** SPF-Record geben. Wenn möglich DKIM für `kimachts.de` im KAS aktivieren.
+
+**Datenschutz:** Solange die Liste nur bei all-inkl liegt, stimmt die
+`datenschutz.php`. Werden die Adressen später auf den Hetzner-Server übernommen oder
+die Start-Mail von dort verschickt, muss Hetzner (Auftragsverarbeitung, Art. 28 DSGVO)
+in der Datenschutzerklärung ergänzt werden – idealerweise schon vor dem ersten Eintrag.
