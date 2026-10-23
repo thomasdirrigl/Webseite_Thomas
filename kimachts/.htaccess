@@ -1,0 +1,11 @@
+Options -Indexes
+DirectoryIndex index.php
+
+# Immer HTTPS verwenden
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<FilesMatch "\.(sqlite|sqlite-journal|sqlite-wal|sqlite-shm|db)$">
+  Require all denied
+</FilesMatch>

@@ -1,1 +1,4 @@
 .claude/
+kimachts/inc/config.php
+kimachts/data/*
+!kimachts/data/.htaccess
