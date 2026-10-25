@@ -19,6 +19,15 @@ if (!empty($_POST['website'])) {
     exit;
 }
 
+// Zeitsperre: main.js sendet die Sekunden seit dem Laden der Seite mit.
+// Fehlt der Wert (Bot ohne JavaScript, direkter POST) oder wurde schneller
+// als ein Mensch abgeschickt, wird die Anfrage still verworfen.
+$elapsed = filter_var($_POST['elapsed'] ?? '', FILTER_VALIDATE_INT);
+if ($elapsed === false || $elapsed < 3) {
+    echo json_encode(['ok' => true]);
+    exit;
+}
+
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $message = trim($_POST['message'] ?? '');
@@ -26,6 +35,12 @@ $message = trim($_POST['message'] ?? '');
 if ($name === '' || $email === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode(['error' => 'Ungueltige Eingabe']);
+    exit;
+}
+
+// Inhaltsfilter: Links in Name oder Nachricht kommen praktisch nur von Spam-Bots.
+if (preg_match('~https?://|www\.|\[url~i', $name . ' ' . $message)) {
+    echo json_encode(['ok' => true]);
     exit;
 }
 
@@ -38,7 +53,9 @@ $body = "Name: $name\nE-Mail: $email\n\nNachricht:\n$message\n";
 $headers = [];
 $headers[] = 'From: Website Kontaktformular <no-reply@thomasdirrigl.de>';
 $headers[] = 'Reply-To: ' . $email;
+$headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=utf-8';
+$headers[] = 'Content-Transfer-Encoding: 8bit';
 
 $success = mail($recipient, $subject, $body, implode("\r\n", $headers));
 

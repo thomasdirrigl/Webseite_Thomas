@@ -76,12 +76,16 @@ function setupContactForm() {
   const status = document.getElementById("formStatus");
   if (!form || !status) return;
 
+  const loadedAt = Date.now();
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     status.className = "form-status";
     status.textContent = "";
 
     const formData = new FormData(form);
+    // Fuer die Zeitsperre in contact.php
+    formData.append("elapsed", String(Math.floor((Date.now() - loadedAt) / 1000)));
 
     try {
       const response = await fetch(form.action, {
